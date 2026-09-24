@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>IKSHWAKU STORYVERSE</title>
+
+  <meta name="description" content="IKSHWAKU STORYVERSE - Stories by Rajesh Thogarla">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
+    }
+
+    header {
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      align-items: center;
+      padding: 60px 7%;
+      background:
+        radial-gradient(circle at 80% 40%, #422900 0%, transparent 35%),
+        #080808;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .small-title {
+      color: #d6a84f;
+      letter-spacing: 4px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 8vw, 90px);
+      line-height: 0.95;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      color: #d6a84f;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #aaa;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #d6a84f;
+      color: #080808;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .section {
+      padding: 70px 7%;
+    }
+
+    .section-title {
+      font-size: 32px;
+      margin-bottom: 35px;
+    }
+
+    .stories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #d6a84f;
+    }
+
+    .poster {
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #241700, #111);
+      color: #d6a84f;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      color: #d6a84f;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .read {
+      color: #d6a84f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 20px;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .hero,
+      .section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero {
+        min-height: 65vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">IKSHWAKU</div>
+
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#stories">STORIES</a>
+    <a href="#about">ABOUT</a>
+  </nav>
+</header>
+
+
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <div class="small-title">
+      RAJESH THOGARLA PRESENTS
+    </div>
+
+    <h1>IKSHWAKU</h1>
+
+    <h2>STORYVERSE</h2>
+
+    <p>
+      Enter a world of stories, emotions, mysteries,
+      love, thrillers and unforgettable characters.
+    </p>
+
+    <a href="#stories" class="button">
+      EXPLORE STORIES
+    </a>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="stories">
+
+  <h2 class="section-title">
+    Latest Stories
+  </h2>
+
+  <div class="stories">
+
+
+    <div class="card">
+
+      <div class="poster">
+        ఖజాన
+      </div>
+
+      <div class="card-content">
+
+        <h3>ఖజాన</h3>
+
+        <div class="status">
+          COMPLETED
+        </div>
+
+        <p>
+          The Forbidden Curse — A mysterious journey
+          through history, treasure and secrets.
+        </p>
+
+        <a
+          class="read"
+          href="#"
+          target="_blank">
+          READ NOW →
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="poster">
+        ఇష్క్
+      </div>
+
+      <div class="card-content">
+
+        <h3>ఇష్క్</h3>
+
+        <div class="status">
+          ONGOING
+        </div>
+
+        <p>
+          A story of love, emotions and destiny.
+        </p>
+
+        <a
+          class="read"
+          href="#"
+          target="_blank">
+          READ NOW →
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="poster">
+        కలయా నిజమా
+      </div>
+
+      <div class="card-content">
+
+        <h3>కలయా నిజమా</h3>
+
+        <div class="status">
+          ONGOING
+        </div>
+
+        <p>
+          A journey between dreams and reality.
+        </p>
+
+        <a
+          class="read"
+          href="#"
+          target="_blank">
+          READ NOW →
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="poster">
+        ఇక్ష్వాకు
+      </div>
+
+      <div class="card-content">
+
+        <h3>ఇక్ష్వాకు కుల తిలకుడు</h3>
+
+        <div class="status">
+          COMING SOON
+        </div>
+
+        <p>
+          A new story from the world of IKSHWAKU.
+        </p>
+
+        <a
+          class="read"
+          href="#"
+          target="_blank">
+          DETAILS →
+        </a>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<section class="section" id="about">
+
+  <h2 class="section-title">
+    About the Author
+  </h2>
+
+  <p style="color:#aaa; max-width:700px; line-height:1.8;">
+    Rajesh Thogarla is a writer and author known by the
+    pen name IKSHWAKU. IKSHWAKU STORYVERSE is a home
+    for his stories, novels and fictional worlds.
+  </p>
+
+</section>
+
+
+<footer>
+
+  <strong>IKSHWAKU STORYVERSE</strong>
+
+  <br><br>
+
+  © 2026 Rajesh Thogarla. All Rights Reserved.
+
+</footer>
+
+</body>
+</html>
