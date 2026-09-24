@@ -1,416 +1,1039 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>IKSHWAKU STORYVERSE</title>
+<title>IKSHWAKU STORYVERSE</title>
 
-  <meta name="description" content="IKSHWAKU STORYVERSE - Stories by Rajesh Thogarla">
+<meta name="description"
+content="IKSHWAKU STORYVERSE - Stories by Rajesh Thogarla">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#080808;
+    color:#ffffff;
+    line-height:1.6;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    width:100%;
+    border-bottom:1px solid #242424;
+    background:#080808;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+    color:#ffffff;
+    font-weight:bold;
+    letter-spacing:3px;
+    font-size:20px;
+}
+
+.logo span{
+    display:block;
+    color:#dca63a;
+    font-size:11px;
+    letter-spacing:2px;
+    margin-top:2px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.nav-links a{
+    color:#ffffff;
+    text-decoration:none;
+    font-size:13px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#e0aa3e;
+}
+
+/* SEARCH */
+
+.search-box{
+    display:flex;
+    border:1px solid #dca63a;
+    height:34px;
+}
+
+.search-box input{
+    width:120px;
+    background:#111;
+    border:none;
+    outline:none;
+    color:#fff;
+    padding:7px;
+}
+
+.search-box button{
+    background:#dca63a;
+    border:none;
+    padding:0 12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    max-width:1200px;
+    margin:auto;
+    padding:80px 25px;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero-small{
+    color:#dca63a;
+    letter-spacing:4px;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:72px;
+    letter-spacing:5px;
+    line-height:1;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    color:#dca63a;
+    letter-spacing:7px;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#bdbdbd;
+    max-width:600px;
+    margin-bottom:30px;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:13px 25px;
+    background:#dca63a;
+    color:#000;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:3px;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    background:#ffffff;
+}
+
+/* ================= COMMON SECTION ================= */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 25px;
+}
+
+.section-title{
+    font-size:32px;
+    margin-bottom:35px;
+    position:relative;
+}
+
+.section-title::after{
+    content:"";
+    display:block;
+    width:60px;
+    height:3px;
+    background:#dca63a;
+    margin-top:10px;
+}
+
+/* ================= STORIES ================= */
+
+.stories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.card{
+    background:#111111;
+    border:1px solid #292929;
+    border-radius:8px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#dca63a;
+    box-shadow:0 10px 30px rgba(220,166,58,.12);
+}
+
+.poster{
+    width:100%;
+    height:420px;
+    background:linear-gradient(135deg,#211500,#100e09);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.no-poster{
+    color:#dca63a;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.card-content{
+    padding:18px;
+}
+
+.card-content h3{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.status{
+    color:#dca63a;
+    font-size:11px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.card-content p{
+    color:#aaa;
+    font-size:13px;
+    min-height:55px;
+}
+
+.read{
+    display:inline-block;
+    margin-top:12px;
+    color:#dca63a;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.read:hover{
+    color:#fff;
+}
+
+/* ================= ABOUT ================= */
+
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.about-text{
+    border:1px solid #333;
+    padding:30px;
+}
+
+.about-text h3{
+    color:#dca63a;
+    margin-bottom:15px;
+}
+
+.about-text p{
+    color:#bdbdbd;
+    font-size:15px;
+}
+
+.author-image{
+    min-height:300px;
+    border:1px solid #333;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+}
+
+/* ================= NOTE ================= */
+
+.note{
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+    border:1px solid #333;
+    padding:30px;
+}
+
+.note h3{
+    color:#dca63a;
+    margin-bottom:15px;
+}
+
+.note p{
+    color:#aaa;
+    font-style:italic;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    margin-top:60px;
+    border-top:1px solid #292929;
+    background:#050505;
+}
+
+.footer-container{
+    max-width:1200px;
+    margin:auto;
+    padding:55px 25px 25px;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:40px;
+}
+
+.footer-brand h2{
+    letter-spacing:4px;
+    margin-bottom:5px;
+}
+
+.footer-brand span{
+    color:#dca63a;
+    letter-spacing:3px;
+    font-size:12px;
+}
+
+.footer-brand p{
+    color:#888;
+    font-size:13px;
+    margin-top:15px;
+    max-width:400px;
+}
+
+.footer-column h3{
+    font-size:15px;
+    color:#dca63a;
+    margin-bottom:15px;
+}
+
+.footer-column a{
+    display:block;
+    color:#aaa;
+    text-decoration:none;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.footer-column a:hover{
+    color:#fff;
+}
+
+/* SOCIAL ICONS */
+
+.social-icons{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+}
+
+.social-icons a{
+    width:42px;
+    height:42px;
+    border:1px solid #444;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.social-icons a:hover{
+    border-color:#dca63a;
+    color:#dca63a;
+    transform:translateY(-3px);
+}
+
+.social-icons svg{
+    width:19px;
+    height:19px;
+    fill:currentColor;
+}
+
+.pratilipi-icon{
+    font-weight:bold;
+    font-size:20px;
+}
+
+/* FOOTER BOTTOM */
+
+.footer-bottom{
+    border-top:1px solid #222;
+    padding-top:20px;
+    display:flex;
+    justify-content:space-between;
+    color:#666;
+    font-size:12px;
+}
+
+.footer-bottom span{
+    color:#dca63a;
+}
+
+/* ================= LOGIN ================= */
+
+.login-section{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.login-btn{
+    display:inline-block;
+    border:1px solid #dca63a;
+    padding:10px 20px;
+    color:#dca63a;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.login-btn:hover{
+    background:#dca63a;
+    color:#000;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    .stories{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #080808;
-      color: white;
+    .footer-top{
+        grid-template-columns:1fr 1fr;
     }
 
-    header {
-      padding: 25px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #222;
+}
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:15px;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 3px;
+    .nav-links{
+        gap:12px;
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 25px;
-      font-size: 14px;
+    .nav-links a{
+        font-size:11px;
     }
 
-    .hero {
-      min-height: 75vh;
-      display: flex;
-      align-items: center;
-      padding: 60px 7%;
-      background:
-        radial-gradient(circle at 80% 40%, #422900 0%, transparent 35%),
-        #080808;
+    .search-box{
+        display:none;
     }
 
-    .hero-content {
-      max-width: 700px;
+    .hero{
+        min-height:500px;
+        padding:60px 20px;
     }
 
-    .small-title {
-      color: #d6a84f;
-      letter-spacing: 4px;
-      font-size: 14px;
-      margin-bottom: 20px;
+    .hero h1{
+        font-size:45px;
     }
 
-    .hero h1 {
-      font-size: clamp(45px, 8vw, 90px);
-      line-height: 0.95;
-      margin-bottom: 20px;
+    .hero h2{
+        font-size:18px;
     }
 
-    .hero h2 {
-      color: #d6a84f;
-      letter-spacing: 5px;
-      margin-bottom: 20px;
+    .stories{
+        grid-template-columns:1fr;
     }
 
-    .hero p {
-      color: #aaa;
-      line-height: 1.7;
-      max-width: 600px;
-      margin-bottom: 30px;
+    .poster{
+        height:450px;
     }
 
-    .button {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #d6a84f;
-      color: #080808;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 4px;
+    .about{
+        grid-template-columns:1fr;
     }
 
-    .section {
-      padding: 70px 7%;
+    .footer-top{
+        grid-template-columns:1fr;
+        gap:30px;
     }
 
-    .section-title {
-      font-size: 32px;
-      margin-bottom: 35px;
+    .footer-bottom{
+        flex-direction:column;
+        gap:8px;
+        text-align:center;
     }
 
-    .stories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-    }
+}
 
-    .card {
-      background: #111;
-      border: 1px solid #242424;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: #d6a84f;
-    }
-
-    .poster {
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #241700, #111);
-      color: #d6a84f;
-      font-size: 26px;
-      font-weight: bold;
-    }
-
-    .card-content {
-      padding: 20px;
-    }
-
-    .card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .status {
-      color: #d6a84f;
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-    }
-
-    .card p {
-      color: #999;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 18px;
-    }
-
-    .read {
-      color: #d6a84f;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid #222;
-      color: #777;
-    }
-
-    footer strong {
-      color: white;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 20px;
-      }
-
-      nav a {
-        margin-left: 10px;
-        font-size: 12px;
-      }
-
-      .hero,
-      .section {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .hero {
-        min-height: 65vh;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-<header>
-  <div class="logo">IKSHWAKU</div>
 
-  <nav>
-    <a href="#home">HOME</a>
-    <a href="#stories">STORIES</a>
-    <a href="#about">ABOUT</a>
-  </nav>
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="navbar">
+
+<a href="#" class="logo">
+IKSHWAKU
+<span>STORYVERSE</span>
+</a>
+
+<nav class="nav-links">
+
+<a href="#">HOME</a>
+
+<a href="#stories">STORIES</a>
+
+<a href="#about">ABOUT</a>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="SEARCH">
+<button onclick="searchStories()">SEARCH</button>
+</div>
+
+</nav>
+
+</div>
+
 </header>
 
 
-<section class="hero" id="home">
+<!-- ================= HERO ================= -->
 
-  <div class="hero-content">
+<section class="hero">
 
-    <div class="small-title">
-      RAJESH THOGARLA PRESENTS
-    </div>
+<div class="hero-content">
 
-    <h1>IKSHWAKU</h1>
+<div class="hero-small">
+RAJESH THOGARLA PRESENTS
+</div>
 
-    <h2>STORYVERSE</h2>
+<h1>IKSHWAKU</h1>
 
-    <p>
-      Enter a world of stories, emotions, mysteries,
-      love, thrillers and unforgettable characters.
-    </p>
+<h2>STORYVERSE</h2>
 
-    <a href="#stories" class="button">
-      EXPLORE STORIES
-    </a>
+<p>
+Enter a world of stories, emotions, mysteries, love,
+thrillers and unforgettable characters.
+</p>
 
-  </div>
+<a href="#stories" class="hero-btn">
+EXPLORE STORIES
+</a>
+
+</div>
 
 </section>
 
+
+<!-- ================= STORIES ================= -->
 
 <section class="section" id="stories">
 
-  <h2 class="section-title">
-    Latest Stories
-  </h2>
+<h2 class="section-title">
+Latest Stories
+</h2>
 
-  <div class="stories" id="storiesContainer">
-  </div>
+<div class="stories" id="storiesContainer">
+
+</div>
 
 </section>
 
+
+<!-- ================= ABOUT ================= -->
 
 <section class="section" id="about">
 
-  <h2 class="section-title">
-    About the Author
-  </h2>
+<h2 class="section-title">
+About The Writer
+</h2>
 
-  <p style="color:#aaa; max-width:700px; line-height:1.8;">
-    Rajesh Thogarla is a writer and author known by the
-    pen name IKSHWAKU. IKSHWAKU STORYVERSE is a home
-    for his stories, novels and fictional worlds.
-  </p>
+<div class="about">
+
+<div class="about-text">
+
+<h3>
+RAJESH THOGARLA : AUTHOR & WRITER
+</h3>
+
+<p>
+I am Rajesh Thogarla, an author and writer who has been
+writing since 2020. As a passionate writer, I am dedicated
+to crafting compelling narratives that resonate with readers.
+I believe that words have the power to evoke emotions,
+inspire change, and connect people from all walks of life.
+</p>
+
+</div>
+
+
+<div class="author-image">
+
+MY IMAGE
+
+</div>
+
+</div>
 
 </section>
 
 
-<footer>
+<!-- ================= NOTE ================= -->
 
-  <strong>IKSHWAKU STORYVERSE</strong>
+<section class="section">
 
-  <br><br>
+<div class="note">
 
-  © 2026 Rajesh Thogarla. All Rights Reserved.
-</footer>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+<h3>
+A NOTE TO MY READER
+</h3>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAq3AzaycqfJAE5_m3jSd7jB7sDniHR8_g",
-    authDomain: "ikshwaku-storyverse.firebaseapp.com",
-    projectId: "ikshwaku-storyverse",
-    storageBucket: "ikshwaku-storyverse.firebasestorage.app",
-    messagingSenderId: "367728967140",
-    appId: "1:367728967140:web:0a83f49c9d839041051bf1",
-    measurementId: "G-G58HPX86B3"
-  };
+<p>
+"Every story begins with a thought,
+but it lives forever in the heart of a reader."
+</p>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app);
-</script>
-<!-- ADMIN LOGIN -->
-<div id="adminLoginBox" style="display:block; padding:30px; max-width:400px; margin:40px auto;">
-  <h2>Admin Login</h2>
-
-  <input id="adminEmail" type="email" placeholder="Email"
-    style="width:100%;padding:12px;margin:8px 0;">
-
-  <input id="adminPassword" type="password" placeholder="Password"
-    style="width:100%;padding:12px;margin:8px 0;">
-
-  <button id="loginBtn"
-    style="padding:12px 25px;cursor:pointer;">
-    LOGIN
-  </button>
-  <p id="loginMessage"></p>
 </div>
 
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<div class="login-section">
+
+<a href="/admin" class="login-btn">
+ADMIN LOGIN
+</a>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-top">
+
+
+<!-- BRAND -->
+
+<div class="footer-brand">
+
+<h2>
+IKSHWAKU
+</h2>
+
+<span>
+STORYVERSE
+</span>
+
+<p>
+A creative space for stories, emotions,
+mysteries, love, thrillers and unforgettable
+characters by Rajesh Thogarla.
+</p>
+
+</div>
+
+
+<!-- QUICK LINKS -->
+
+<div class="footer-column">
+
+<h3>
+QUICK LINKS
+</h3>
+
+<a href="#">
+Home
+</a>
+
+<a href="#stories">
+Stories
+</a>
+
+<a href="#about">
+About
+</a>
+
+<a href="/admin">
+Admin
+</a>
+
+</div>
+
+
+<!-- FOLLOW -->
+
+<div class="footer-column">
+
+<h3>
+FOLLOW ME
+</h3>
+
+<div class="social-icons">
+
+
+<!-- FACEBOOK -->
+
+<a href="#" title="Facebook" target="_blank">
+
+<svg viewBox="0 0 24 24">
+<path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v8h4v-8h3.5l.5-4H13V9c0-.7.3-1 1-1z"/>
+</svg>
+
+</a>
+
+
+<!-- TWITTER / X -->
+
+<a href="#" title="Twitter" target="_blank">
+
+<svg viewBox="0 0 24 24">
+<path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.2-8.2L2.8 2h6.4l4.4 5.8L18.9 2zm-1.1 17.8h1.7L8.3 4H6.5l11.3 15.8z"/>
+</svg>
+
+</a>
+
+
+<!-- INSTAGRAM -->
+
+<a href="#" title="Instagram" target="_blank">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M7 2h10c2.8 0 5 2.2 5 5v10c0 2.8-2.2 5-5 5H7c-2.8 0-5-2.2-5-5V7c0-2.8 2.2-5 5-5zm0 2C5.3 4 4 5.3 4 7v10c0 1.7 1.3 3 3 3h10c1.7 0 3-1.3 3-3V7c0-1.7-1.3-3-3-3H7zm5 3.5A4.5 4.5 0 1 1 12 16a4.5 4.5 0 0 1 0-9zm0 2A2.5 2.5 0 1 0 12 14a2.5 2.5 0 0 0 0-5zm5-2.2a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+
+</svg>
+
+</a>
+
+
+<!-- YOUTUBE -->
+
+<a href="#" title="YouTube" target="_blank">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6 3.5-6 3.5z"/>
+
+</svg>
+
+</a>
+
+
+<!-- PRATILIPI -->
+
+<a href="#" title="Pratilipi" target="_blank">
+
+<span class="pratilipi-icon">
+P
+</span>
+
+</a>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER BOTTOM -->
+
+<div class="footer-bottom">
+
+<div>
+© 2026 IKSHWAKU STORYVERSE
+</div>
+
+<div>
+Created by <span>RAJESH THOGARLA</span>
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
-  import {
-    getAuth,
-    signInWithEmailAndPassword,
-    setPersistence,
-    browserLocalPersistence
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-  const auth = getAuth();
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-  document.getElementById("loginBtn").addEventListener("click", async () => {
-
-    const email = document.getElementById("adminEmail").value.trim();
-    const password = document.getElementById("adminPassword").value;
-    const message = document.getElementById("loginMessage");
-
-    try {
-      await setPersistence(auth, browserLocalPersistence);
-
-      await signInWithEmailAndPassword(auth, email, password);
-
-      message.textContent = "Login successful!";
-
-      window.location.href = "/admin";
-
-    } catch (error) {
-      console.error(error);
-      message.textContent = "Login failed. Please check your email and password.";
-    }
-  });
-</script>
-<script type="module">
-  import {
-    getApp,
-    getApps
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
-  import {
+import {
     getFirestore,
     collection,
     getDocs
-  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-  const app = getApps().length ? getApp() : null;
 
-  if (app) {
-    const db = getFirestore(app);
-    const container = document.getElementById("storiesContainer");
+const firebaseConfig = {
 
-    async function loadStories() {
-      try {
-        const snapshot = await getDocs(collection(db, "stories"));
+    apiKey: "AIzaSyAq3AzaycqfJAE5_m3jSd7jB7sDniHR8_g",
+
+    authDomain: "ikshwaku-storyverse.firebaseapp.com",
+
+    projectId: "ikshwaku-storyverse",
+
+    storageBucket: "ikshwaku-storyverse.firebasestorage.app",
+
+    messagingSenderId: "367728967140",
+
+    appId: "1:367728967140:web:0a83f49c9d839041051bf1",
+
+    measurementId: "G-G58HPX86B3"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const container =
+document.getElementById("storiesContainer");
+
+
+let allStories = [];
+
+
+async function loadStories(){
+
+    try{
+
+        const snapshot =
+        await getDocs(collection(db,"stories"));
 
         container.innerHTML = "";
 
-        snapshot.forEach((doc) => {
-          const story = doc.data();
+        allStories = [];
 
-          const card = document.createElement("div");
-          card.className = "card";
+        snapshot.forEach((doc)=>{
 
-          card.innerHTML = `
-            <div class="poster">
-              ${
-                story.posterUrl
-                  ? `<img src="${story.posterUrl}" alt="${story.title}">`
-                  : "NO POSTER"
-              }
-            </div>
+            const story = doc.data();
 
-            <div class="card-content">
-              <h3>${story.title || ""}</h3>
+            allStories.push(story);
 
-              <div class="status">
-                ${(story.status || "Ongoing").toUpperCase()}
-              </div>
+            createStoryCard(story);
 
-              <p>${story.description || ""}</p>
-
-              ${
-                story.storyUrl
-                  ? `<a class="read" href="${story.storyUrl}" target="_blank">
-                       READ NOW →
-                     </a>`
-                  : ""
-              }
-            </div>
-          `;
-
-          container.appendChild(card);
         });
 
-      } catch (error) {
-        console.error("Error loading stories:", error);
-        container.innerHTML =
-          "<p>Unable to load stories.</p>";
-      }
+        if(allStories.length === 0){
+
+            container.innerHTML =
+            "<p style='color:#888'>No stories available.</p>";
+
+        }
+
     }
 
-    loadStories();
-  }
+    catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+        "<p style='color:#888'>Unable to load stories.</p>";
+
+    }
+
+}
+
+
+function createStoryCard(story){
+
+    const card =
+    document.createElement("div");
+
+    card.className = "card";
+
+    card.innerHTML = `
+
+        <div class="poster">
+
+            ${
+                story.posterUrl
+
+                ?
+
+                `<img
+                src="${story.posterUrl}"
+                alt="${story.title || "Story"}"
+                >`
+
+                :
+
+                `<div class="no-poster">
+                    NO POSTER
+                </div>`
+            }
+
+        </div>
+
+
+        <div class="card-content">
+
+            <h3>
+                ${story.title || ""}
+            </h3>
+
+            <div class="status">
+
+                ${(story.status || "Ongoing").toUpperCase()}
+
+            </div>
+
+            <p>
+                ${story.description || ""}
+            </p>
+
+
+            ${
+                story.storyUrl
+
+                ?
+
+                `<a
+                    class="read"
+                    href="${story.storyUrl}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    READ NOW →
+                </a>`
+
+                :
+
+                ""
+            }
+
+        </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+}
+
+
+/* SEARCH */
+
+window.searchStories = function(){
+
+    const search =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+
+    container.innerHTML = "";
+
+
+    const filtered =
+    allStories.filter(story =>
+
+        (story.title || "")
+        .toLowerCase()
+        .includes(search)
+
+    );
+
+
+    if(filtered.length === 0){
+
+        container.innerHTML =
+        "<p style='color:#888'>No stories found.</p>";
+
+        return;
+
+    }
+
+
+    filtered.forEach(story => {
+
+        createStoryCard(story);
+
+    });
+
+};
+
+
+loadStories();
+
 </script>
+
+
 </body>
 </html>
