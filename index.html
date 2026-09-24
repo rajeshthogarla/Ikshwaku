@@ -450,28 +450,18 @@
     const message = document.getElementById("loginMessage");
 
     try {
-
       await setPersistence(auth, browserLocalPersistence);
 
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(auth, email, password);
 
       message.textContent = "Login successful!";
 
       window.location.href = "/admin";
 
     } catch (error) {
-
       console.error(error);
-
-      message.textContent =
-        "Login failed. Please check your email and password.";
-
+      message.textContent = "Login failed. Please check your email and password.";
     }
-
   });
 </script>
 </body>
