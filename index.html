@@ -464,5 +464,76 @@
     }
   });
 </script>
+<script type="module">
+  import {
+    getApp,
+    getApps
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+  import {
+    getFirestore,
+    collection,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  const app = getApps().length ? getApp() : null;
+
+  if (app) {
+    const db = getFirestore(app);
+    const container = document.getElementById("storiesContainer");
+
+    async function loadStories() {
+      try {
+        const snapshot = await getDocs(collection(db, "stories"));
+
+        container.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+          const story = doc.data();
+
+          const card = document.createElement("div");
+          card.className = "card";
+
+          card.innerHTML = `
+            <div class="poster">
+              ${
+                story.posterUrl
+                  ? `<img src="${story.posterUrl}" alt="${story.title}">`
+                  : "NO POSTER"
+              }
+            </div>
+
+            <div class="card-content">
+              <h3>${story.title || ""}</h3>
+
+              <div class="status">
+                ${(story.status || "Ongoing").toUpperCase()}
+              </div>
+
+              <p>${story.description || ""}</p>
+
+              ${
+                story.storyUrl
+                  ? `<a class="read" href="${story.storyUrl}" target="_blank">
+                       READ NOW →
+                     </a>`
+                  : ""
+              }
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+
+      } catch (error) {
+        console.error("Error loading stories:", error);
+        container.innerHTML =
+          "<p>Unable to load stories.</p>";
+      }
+    }
+
+    loadStories();
+  }
+</script>
 </body>
 </html>
