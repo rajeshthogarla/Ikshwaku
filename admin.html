@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IKSHWAKU STORYVERSE - Admin</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#080808;
+    color:white;
+}
+
+header{
+    background:#111;
+    border-bottom:1px solid #333;
+    padding:20px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#d9a441;
+}
+
+#logoutBtn{
+    background:#d9a441;
+    border:0;
+    padding:10px 18px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:40px auto;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:30px;
+}
+
+.admin-box{
+    background:#121212;
+    border:1px solid #333;
+    padding:25px;
+    margin-bottom:30px;
+}
+
+.admin-box h2{
+    margin-top:0;
+    color:#d9a441;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    margin:7px 0 15px;
+    background:#1c1c1c;
+    color:white;
+    border:1px solid #444;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.primary{
+    background:#d9a441;
+    color:#000;
+}
+
+.secondary{
+    background:#333;
+    color:white;
+}
+
+.danger{
+    background:#8b2222;
+    color:white;
+}
+
+.story-card{
+    background:#121212;
+    border:1px solid #333;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.story-card h3{
+    color:#d9a441;
+    margin-top:0;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 10px;
+    background:#222;
+    border:1px solid #555;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.actions{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.actions button{
+    padding:9px 15px;
+}
+
+.small{
+    color:#999;
+    font-size:13px;
+    word-break:break-all;
+}
+
+#message{
+    margin:15px 0;
+    padding:12px;
+    display:none;
+}
+
+.success{
+    background:#163b20;
+    color:#8ee09d;
+}
+
+.error{
+    background:#401919;
+    color:#ff9999;
+}
+
+.empty{
+    color:#aaa;
+    padding:20px 0;
+}
+
+@media(max-width:600px){
+    header{
+        padding:18px 5%;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    .container{
+        width:92%;
+    }
+
+    h1{
+        font-size:26px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        IKSHWAKU <span>STORYVERSE</span>
+    </div>
+
+    <button id="logoutBtn">LOGOUT</button>
+</header>
+
+<div class="container">
+
+    <h1>Admin Dashboard</h1>
+
+    <div id="message"></div>
+
+    <!-- ADD / EDIT STORY -->
+    <div class="admin-box">
+
+        <h2 id="formTitle">Add New Story</h2>
+
+        <input type="hidden" id="storyId">
+
+        <label>Story Title</label>
+        <input
+            type="text"
+            id="title"
+            placeholder="Example: ఖజాన"
+        >
+
+        <label>Description</label>
+        <textarea
+            id="description"
+            placeholder="Story description"
+        ></textarea>
+
+        <label>Poster URL</label>
+        <input
+            type="text"
+            id="posterUrl"
+            placeholder="https://..."
+        >
+
+        <label>Story URL</label>
+        <input
+            type="text"
+            id="storyUrl"
+            placeholder="https://..."
+        >
+
+        <label>Status</label>
+        <select id="status">
+            <option value="Ongoing">Ongoing</option>
+            <option value="Completed">Completed</option>
+            <option value="Coming Soon">Coming Soon</option>
+        </select>
+
+        <button class="primary" id="saveBtn">
+            ADD STORY
+        </button>
+
+        <button
+            class="secondary"
+            id="cancelBtn"
+            style="display:none;margin-left:8px;"
+        >
+            CANCEL
+        </button>
+
+    </div>
+
+    <!-- STORIES -->
+    <div class="admin-box">
+
+        <h2>Manage Stories</h2>
+
+        <div id="storiesList">
+            <div class="empty">
+                Loading stories...
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    deleteDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyAg3AzaycqfJAE5_m3jSd7jB7sDniHR8_g",
+
+    authDomain: "ikshwaku-storyverse.firebaseapp.com",
+
+    projectId: "ikshwaku-storyverse",
+
+    storageBucket: "ikshwaku-storyverse.firebasestorage.app",
+
+    messagingSenderId: "367728967140",
+
+    appId: "1:367728967140:web:0a83f49c9d83904105b1f1",
+
+    measurementId: "G-G58HPX86B3"
+};
+
+
+/* INITIALIZE FIREBASE */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* ELEMENTS */
+
+const storiesList =
+    document.getElementById("storiesList");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const messageBox =
+    document.getElementById("message");
+
+
+/* MESSAGE */
+
+function showMessage(text, type){
+
+    messageBox.textContent = text;
+
+    messageBox.className = type;
+
+    messageBox.style.display = "block";
+
+    setTimeout(() => {
+
+        messageBox.style.display = "none";
+
+    },3000);
+}
+
+
+/* AUTH CHECK */
+
+onAuthStateChanged(auth, (user) => {
+
+    if(!user){
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+    console.log(
+        "Admin logged in:",
+        user.email
+    );
+
+    loadStories();
+});
+
+
+/* LOGOUT */
+
+logoutBtn.addEventListener("click", async () => {
+
+    await signOut(auth);
+
+    window.location.href = "index.html";
+});
+
+
+/* LOAD STORIES */
+
+async function loadStories(){
+
+    storiesList.innerHTML =
+        '<div class="empty">Loading stories...</div>';
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(db,"stories")
+            );
+
+        if(snapshot.empty){
+
+            storiesList.innerHTML =
+                '<div class="empty">No stories found.</div>';
+
+            return;
+        }
+
+        storiesList.innerHTML = "";
+
+        snapshot.forEach((documentSnapshot) => {
+
+            const story =
+                documentSnapshot.data();
+
+            const id =
+                documentSnapshot.id;
+
+            const card =
+                document.createElement("div");
+
+            card.className = "story-card";
+
+            card.innerHTML = `
+
+                <h3>${escapeHtml(story.title || "Untitled")}</h3>
+
+                <div class="status">
+                    ${escapeHtml(story.status || "Ongoing")}
+                </div>
+
+                <p>
+                    ${escapeHtml(story.description || "")}
+                </p>
+
+                <div class="small">
+                    Poster:
+                    ${escapeHtml(story.posterUrl || "No poster")}
+                </div>
+
+                <div class="small">
+                    Story:
+                    ${escapeHtml(story.storyUrl || "No story URL")}
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="primary edit-btn"
+                        data-id="${id}"
+                    >
+                        EDIT
+                    </button>
+
+                    <button
+                        class="danger delete-btn"
+                        data-id="${id}"
+                    >
+                        DELETE
+                    </button>
+
+                </div>
+            `;
+
+            storiesList.appendChild(card);
+        });
+
+
+        document.querySelectorAll(".edit-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                editStory(button.dataset.id);
+
+            });
+
+        });
+
+
+        document.querySelectorAll(".delete-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                removeStory(button.dataset.id);
+
+            });
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Unable to load stories.",
+            "error"
+        );
+    }
+}
+
+
+/* ADD / UPDATE */
+
+saveBtn.addEventListener("click", async () => {
+
+    const storyId =
+        document.getElementById("storyId").value;
+
+    const title =
+        document.getElementById("title").value.trim();
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const posterUrl =
+        document.getElementById("posterUrl").value.trim();
+
+    const storyUrl =
+        document.getElementById("storyUrl").value.trim();
+
+    const status =
+        document.getElementById("status").value;
+
+
+    if(!title){
+
+        showMessage(
+            "Please enter story title.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    try{
+
+        if(storyId){
+
+            await updateDoc(
+                doc(db,"stories",storyId),
+                {
+                    title,
+                    description,
+                    posterUrl,
+                    storyUrl,
+                    status,
+                    updatedAt: serverTimestamp()
+                }
+            );
+
+            showMessage(
+                "Story updated successfully.",
+                "success"
+            );
+
+        }else{
+
+            await addDoc(
+                collection(db,"stories"),
+                {
+                    title,
+                    description,
+                    posterUrl,
+                    storyUrl,
+                    status,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                }
+            );
+
+            showMessage(
+                "Story added successfully.",
+                "success"
+            );
+        }
+
+
+        clearForm();
+
+        loadStories();
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Unable to save story.",
+            "error"
+        );
+    }
+
+});
+
+
+/* EDIT STORY */
+
+async function editStory(id){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(db,"stories")
+            );
+
+        let selectedStory = null;
+
+        snapshot.forEach(item => {
+
+            if(item.id === id){
+
+                selectedStory = {
+                    id:item.id,
+                    ...item.data()
+                };
+
+            }
+
+        });
+
+
+        if(!selectedStory){
+
+            showMessage(
+                "Story not found.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        document.getElementById("storyId").value =
+            selectedStory.id;
+
+        document.getElementById("title").value =
+            selectedStory.title || "";
+
+        document.getElementById("description").value =
+            selectedStory.description || "";
+
+        document.getElementById("posterUrl").value =
+            selectedStory.posterUrl || "";
+
+        document.getElementById("storyUrl").value =
+            selectedStory.storyUrl || "";
+
+        document.getElementById("status").value =
+            selectedStory.status || "Ongoing";
+
+
+        document.getElementById("formTitle")
+            .textContent = "Edit Story";
+
+        saveBtn.textContent =
+            "UPDATE STORY";
+
+        cancelBtn.style.display =
+            "inline-block";
+
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Unable to edit story.",
+            "error"
+        );
+    }
+}
+
+
+/* DELETE STORY */
+
+async function removeStory(id){
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete this story?"
+        );
+
+    if(!confirmDelete){
+
+        return;
+    }
+
+
+    try{
+
+        await deleteDoc(
+            doc(db,"stories",id)
+        );
+
+        showMessage(
+            "Story deleted successfully.",
+            "success"
+        );
+
+        loadStories();
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Unable to delete story.",
+            "error"
+        );
+    }
+}
+
+
+/* CANCEL EDIT */
+
+cancelBtn.addEventListener(
+    "click",
+    clearForm
+);
+
+
+/* CLEAR FORM */
+
+function clearForm(){
+
+    document.getElementById("storyId").value = "";
+
+    document.getElementById("title").value = "";
+
+    document.getElementById("description").value = "";
+
+    document.getElementById("posterUrl").value = "";
+
+    document.getElementById("storyUrl").value = "";
+
+    document.getElementById("status").value =
+        "Ongoing";
+
+    document.getElementById("formTitle")
+        .textContent = "Add New Story";
+
+    saveBtn.textContent =
+        "ADD STORY";
+
+    cancelBtn.style.display =
+        "none";
+}
+
+
+/* SECURITY */
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replaceAll("&","&amp;")
+
+        .replaceAll("<","&lt;")
+
+        .replaceAll(">","&gt;")
+
+        .replaceAll('"',"&quot;")
+
+        .replaceAll("'","&#039;");
+}
+
+</script>
+
+</body>
+</html>
